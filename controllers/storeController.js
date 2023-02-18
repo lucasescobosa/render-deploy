@@ -96,7 +96,23 @@ const storeController = {
 		} catch(e) {
 			res.status(500).json({ error: e })
 		}
-	}
+	},
+
+	delete: async (req, res) => {
+		try {
+			const images = await db.Product_image.destroy({
+				where: { product_id : req.params.id	}
+			})
+			const product = await db.Product.destroy({
+				where: { id : req.params.id	}
+			})
+
+			res.json('Successful')
+
+		} catch(e) {
+			res.status(500).json({ error: e })
+		}
+    },
 
 }
 

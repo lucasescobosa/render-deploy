@@ -33,5 +33,6 @@ router.get('/detail/:id', storeController.detail)
 
 router.post('/create', upload.fields([{name: 'mainImage', maxCount: 1} , {name: 'images' , maxCount: 3}]), storeController.create)
 router.put('/edit/:id', storeController.edit)
+router.delete('/delete/:id', storeController.delete)
 
 module.exports = router;
