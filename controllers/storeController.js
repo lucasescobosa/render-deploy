@@ -9,10 +9,12 @@ const storeController = {
         try{
 			const allStore = await db.Product.findAll({
 				//Incluir la tabla imagenes y obtener la principal
-				include: {
+				include: [{
 							association: 'products_images',
 							where: { main: 1 }
-						},
+						},{
+							association: 'subcategories'
+						}],
 				//Ordenar para que aparezcan primero las ofertas y al último los productos sin stock
 				order: [
 					['offer', 'DESC'],  
@@ -87,7 +89,7 @@ const storeController = {
 				subcategory_id : req.body.subcategory,
 				offer : parseInt(req.body.discount) !== 0 ? 1 : 0,
 				discount : parseInt(req.body.discount) !== 0 ? parseInt(req.body.discount) : 0,
-				stock : req.body.stock != undefined ? 1 : 0,
+				stock : (req.body.stock == 1 || req.body.stock[0] == 'on') ? 1 : 0,
 			},{
 				where: { id : req.params.id	}
 			})
